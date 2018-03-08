@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+	    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css'>
+	    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300'>
+	    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,700,300'>
+	    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+			<link rel="stylesheet" href="../public/css/styleregister.css">
+
+			<style>
+			body {
+				font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+				background: #e6f5ff;
+			}
+
+			a,
+			[type="submit"] {
+				-webkit-transition: all .25s ease-in;
+				transition: all .25s ease-in;
+			}
+
+			.signup__container {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				left: 0;
+				margin-right: auto;
+				margin-left: auto;
+				-webkit-transform: translateY(-50%);
+								transform: translateY(-50%);
+				overflow: hidden;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+						-ms-flex-align: center;
+								align-items: center;
+				-webkit-box-pack: center;
+						-ms-flex-pack: center;
+								justify-content: center;
+				width: 50rem;
+				height: 30rem;
+				border-radius: 0.1875rem;
+				-webkit-box-shadow: 0px 0.1875rem 0.4375rem rgba(0, 0, 0, 0.25);
+								box-shadow: 0px 0.1875rem 0.4375rem rgba(0, 0, 0, 0.25);
+			}
+
+			.signup__overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.76);
+			}
+
+			.container__child {
+				width: 50%;
+				height: 100%;
+				color: #fff;
+			}
+
+			.signup__thumbnail {
+				position: relative;
+				padding: 2rem;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-ms-flex-wrap: wrap;
+						flex-wrap: wrap;
+				-webkit-box-align: center;
+						-ms-flex-align: center;
+								align-items: center;
+				background: url(https://images.pexels.com/photos/297755/pexels-photo-297755.jpeg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb);
+				background-repeat: no-repeat;
+				background-position: top center;
+				background-size: cover;
+			}
+
+			.thumbnail__logo,
+			.thumbnail__content,
+			.thumbnail__links {
+				position: relative;
+				z-index: 2;
+			}
+
+			.thumbnail__logo {
+				-ms-flex-item-align: start;
+						align-self: flex-start;
+			}
+
+			.logo__shape {
+				fill: #fff;
+			}
+
+			.logo__text {
+				display: inline-block;
+				font-size: .8rem;
+				font-weight: 700;
+				vertical-align: bottom;
+			}
+
+			.thumbnail__content {
+				-ms-flex-item-align: center;
+						align-self: center;
+			}
+
+			h1,
+			h2 {
+				font-weight: 300;
+				color: white;
+			}
+
+			.heading--primary {
+				font-size: 1.5rem;
+			}
+
+			.heading--secondary {
+				font-size: 1.2rem;
+			}
+
+			.thumbnail__links {
+				-ms-flex-item-align: end;
+						align-self: flex-end;
+				width: 100%;
+			}
+
+			.thumbnail__links a {
+				font-size: 1rem;
+				color: #fff;
+			}
+			.thumbnail__links a:focus, .thumbnail__links a:hover {
+				color: rgba(255, 255, 255, 0.5);
+			}
+
+			.signup__form {
+				padding: 2.5rem;
+				background: #fafafa;
+			}
+
+			label {
+				font-size: .85rem;
+				text-transform: uppercase;
+				color: #ccc;
+			}
+
+			.form-control {
+				background-color: transparent;
+				border-top: 0;
+				border-right: 0;
+				border-left: 0;
+				border-radius: 0;
+			}
+			.form-control:focus {
+				border-color: #111;
+			}
+
+			[type="text"] {
+				color: #111;
+			}
+
+			[type="password"] {
+				color: #111;
+			}
+
+			.btn--form {
+				padding: .5rem 2.5rem;
+				font-size: .95rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				color: #fff;
+				background: #111;
+				border-radius: 2.1875rem;
+			}
+			.btn--form:focus, .btn--form:hover {
+				background: #323232;
+			}
+
+			.signup__link {
+				font-size: .8rem;
+				font-weight: 600;
+				text-decoration: underline;
+				color: #999;
+			}
+			.signup__link:focus, .signup__link:hover {
+				color: #787878;
+			}
+
+			</style>
+
+</head>
+
+<body>
+
+  <div class="signup__container">
+  <div class="container__child signup__thumbnail">
+    <div class="thumbnail__logo">
+      <svg class="logo__shape" width="25px" viewBox="0 0 634 479" xmlns="http://www.w3.org/2000/svg">
+    </div>
+    <div class="thumbnail__content text-center">
+      <h1 class="heading--primary">Welcome to your Online Personal Organizer</h1>
+      <h2 class="heading--secondary">Are you ready to start your planning?</h2>
+    </div>
+    <div class="thumbnail__links">
+      <ul class="list-inline m-b-0 text-center">
+        <li><a href="https://github.com/aisserf" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://github.com/betost123" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://github.com/shahadnaji" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <!-- <form action="form action="/home/register"" method="POST"> -->
+		<form action="/register" method="POST">
+      <div class="form-group">
+        <label for="name">name</label>
+        <input class="form-control" type="text" name="name" id="name" placeholder="uno" required />
+      </div>
+      <div class="form-group">
+        <label for="userid">userid</label>
+        <input class="form-control" type="text" name="userid" id="userid" placeholder="holmer" required />
+      </div>
+      <div class="form-group">
+        <label for="email">email</label>
+        <input class="form-control" type="email" name="email" id="email" placeholder="uno@holmer.se" required />
+      </div>
+      <div class="form-group">
+        <label for="password">password</label>
+        <input class="form-control" type="password" name="password" id="password" placeholder="***" required />
+      </div>
+      <div class="m-t-lg">
+        <ul class="list-inline">
+          <li>
+            <input class="btn btn--form" type="submit" value="Submit" />
+          </li>
+          <li>
+            <a class="signup__link" href="#">I am already a member</a>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>
+
+<a href="/home"> Cancel </a>
+
+</body>
+
+</html>
