@@ -14,11 +14,11 @@ app.post('/signin', passport.authenticate(
 //For checklist
 app.get('/checklist', isLoggedIn, showNotes, authController.checklist);
 app.get('/checklist/add', isLoggedIn, authController.add);
-app.post('/checklist/add', addNote, authController.add);
+app.post('/checklist/add', isLoggedIn, addNote, authController.add);
 app.get('/checklist/edit', isLoggedIn, getEditNote, authController.edit);
 app.post('/checklist/edit', isLoggedIn, editNote, authController.edit);
-app.get('/checklist/delete', getDeleteNote, authController.delete);
-app.post('/checklist/delete', deleteNote, authController.delete);
+app.get('/checklist/delete', isLoggedIn, getDeleteNote, authController.delete);
+app.post('/checklist/delete', isLoggedIn, deleteNote, authController.delete);
 app.get('/checklistsearched', isLoggedIn, showNotesSearched, authController.checklistsearched);
 
 //Edit a note
@@ -69,6 +69,7 @@ function showNotesSearched(req, res, next) {
 
 //Show all notes
 function showNotes(req, res, next) {
+  //console.log("User: " + req.session.id); //Encrypted!?
   models.note.findAll()
   .then(function(notes) {
     res.render('checklist', {
@@ -123,6 +124,7 @@ function addNote(req, res, next) {
 
 //Give access to person using website
 function isLoggedIn(req, res, next) {
+  console.log("This me bish: " + req.session.userpass);
     if (req.isAuthenticated())
         return next();
 

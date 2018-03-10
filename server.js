@@ -22,14 +22,13 @@ app.set('views', './app/views')
 app.engine('html', exphbs({extname: '.html'}));
 app.set('view engine', 'html');
 
-
+//View start page when server starts
 app.get('/', function(req, res){
   res.render('home', {text: 'Your BOPO on the Web'});
 });
 
 //Models
 var models = require("./app/models");
-
 
 //Routes
 var authRoute = require('./app/routes/auth.js')(app,passport);
