@@ -8,11 +8,11 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
 
-        firstname: {
+        name: {
             type: Sequelize.STRING,
             notEmpty: true
         },
-        username: {
+        userid: {
             type: Sequelize.TEXT
         },
         email: {
@@ -24,9 +24,6 @@ module.exports = function(sequelize, Sequelize) {
         password: {
             type: Sequelize.STRING,
             allowNull: false
-        },
-        last_login: {
-            type: Sequelize.DATE
         },
         status: {
             type: Sequelize.ENUM('active', 'inactive'),

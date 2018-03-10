@@ -3,7 +3,7 @@
     "development": {
         "username": "root",
         "password": "pwd",
-        "database": "sequelize_passport",
+        "database": "BOPO",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },

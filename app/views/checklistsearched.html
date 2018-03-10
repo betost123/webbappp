@@ -1,9 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-	<link rel="stylesheet" href="/Users/kungen/Documents/testaLoginMedDatabas/app/public/css/firstpStyle.css" type="text/css" />
-	<title></title>
-
 	<style>
 	/*
 	* multi-line comment
@@ -144,35 +141,45 @@
 	ul li a{ box-shadow: 0px 1px 1px #999; }
 
 	</style>
-
 </head>
-<body>
 
+<body>
+<!-- webpage content goes here in the body -->
 <button class="button">Help</button>
-<button class="button">Home</button>
+<button class="button"><a href="/home/">Home</a></button>
 <button class="button"><a href="/register">Register</a></button>
 <button class="button"><a href="/checklist">Checklist</a></button>
-<button class="button"><a href="/home/calendar">Calendar</a></button>
-<button class="button"><a href="/signin">Sign In</a></button>
-<button class="button"><a href="/logout">Log Out</a></button>
+
+<p> {{ text }} </p>
 
 	<div id="page">
 		<div id="logo" style="text-align: center">
 
-			<h1><a href="/" id="logoLink"> Welcome to your online personal calendar</a></h1>
+			<h1>Checklist for xxxx</h1>
 		</div>
-		<div id="nav">
-		</div>
+		<div id="nav"> </div>
+
 		<div id="content">
 			<p>
-        Have fun!
+				<ul id="myUL">
+					<table>
+						{{#homechecklist}}
+						<tr>
+							<td>{{ text }}</td>
+							<td>{{ dateTime }}</td>
+							<td>{{ done }}</td>
+							<td>{{ category }} </td>
+						</tr>
+						{{/homechecklist}}
+					</table>
+			</ul>
+			<p>
+				<button class="button"><a href="/checklist"> Back </a></button>
+			</br>
 			</p>
-
+		 </p>
 		</div>
-
 	</div>
 
 </body>
-<br>
-<br>
 </html>

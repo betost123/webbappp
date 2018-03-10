@@ -15,10 +15,12 @@ app.post('/signin', passport.authenticate(
 app.get('/checklist', isLoggedIn, showNotes, authController.checklist);
 app.get('/checklist/add', isLoggedIn, authController.add);
 app.post('/checklist/add', addNote, authController.add);
-app.get('/checklist/edit', getEditNote, authController.edit);
-app.post('/checklist/edit', editNote, authController.edit);
+app.get('/checklist/edit', isLoggedIn, getEditNote, authController.edit);
+app.post('/checklist/edit', isLoggedIn, editNote, authController.edit);
 app.get('/checklist/delete', getDeleteNote, authController.delete);
 app.post('/checklist/delete', deleteNote, authController.delete);
+app.get('/checklistsearched', isLoggedIn, showNotesSearched, authController.checklistsearched);
+
 //Edit a note
 function getEditNote(req, res, next) {
   console.log("We gonna edit this note: " + req.query.id);
@@ -28,6 +30,7 @@ function getEditNote(req, res, next) {
     })
   })
 }
+
 function editNote(req, res, next) {
   models.note.findById(req.body.id).then(function(note) {
     return note.updateAttributes({text: req.body.text});
@@ -36,6 +39,7 @@ function editNote(req, res, next) {
   })
 }
 
+//Delete a note
 function getDeleteNote(req, res, next) {
   console.log("we gonna delete thid" + req.query.id);
   models.note.findById(req.query.id).then(function(note){
@@ -52,28 +56,71 @@ function deleteNote(req, res, next){
   })
 }
 
-//Show all notes
-function showNotes(req, res, next) {
-  models.note.findAll().then(function(notes) {
-    res.render('checklist', {
+//Show notes by category
+function showNotesSearched(req, res, next) {
+  models.note.findAll({ where:
+    {category: req.query.category}})
+  .then(function(notes) {
+    res.render('checklistsearched', {
       homechecklist: notes
     })
   })
 }
+
+//Show all notes
+function showNotes(req, res, next) {
+  models.note.findAll()
+  .then(function(notes) {
+    res.render('checklist', {
+      homechecklist: notes
+    })
+  })
+  /*
+  models.user.findAll({where: {status: 'active'}, attributes: ['email']})
+  .then(function(user) {
+    console.log("Email is: " + user.email);
+    models.note.findAll({where: {email: user.email}})
+    .catch(function(err) {console.log("Error :" + err);})
+    .then(function(notes) {
+      res.render('checklist', {
+        homechecklist: notes
+      })
+    })
+  })
+.catch(function(err) {
+  console.log("Error: " + err);
+})*/
+}
+
+//Find user email
+function getMail() {
+    models.user.findAll({
+      where: {status: 'active'},
+      attributes: ['email']
+    })
+    .then(function(user) {
+      console.log("This him: " + user);
+      return user;
+    })
+}
+
 //Add a note
 function addNote(req, res, next) {
   console.log("Trying to add");
   models.note
   .build({
-    userid: 'Petina',
+    userid: req.body.userid,
     text: req.body.text,
+    category: req.body.category,
     done: 'f'
-  }).save().then(function() {
+  })
+  .save().then(function() {
     res.redirect("/checklist");
   }).catch(function(error) {
     console.log(error);
   })
 }
+
 //Give access to person using website
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
@@ -81,9 +128,5 @@ function isLoggedIn(req, res, next) {
 
     res.redirect('/signin');
 }
-
-
-
-
 
 }

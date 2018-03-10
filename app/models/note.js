@@ -7,10 +7,12 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-
         userid: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             notEmpty: true
+        },
+        category: {
+          type: Sequelize.STRING
         },
         text: {
             type: Sequelize.TEXT

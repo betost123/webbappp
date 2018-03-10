@@ -159,7 +159,26 @@
 		</div>
 		<div id="nav"> </div>
 
+		<div class="w3-dropdown-hover">
+		  <button class="w3-button">User:</button>
+		  <div class="w3-dropdown-content w3-bar-block w3-border">
+				{{#homechecklist}}
+		    <a action="/checklistsearched" method="get" class="w3-bar-item w3-button">{{userid}}</a>
+				{{/homechecklist}}
+		  </div>
+		</div>
+
 		<div id="content">
+			<form action="/checklistsearched" method="get">
+				<table>
+					<tr>
+						<td><input type="text" name="category" />Search by category</td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="add" value="Search" /></td>
+					</tr>
+				</table>
+			</form>
 			<p>
 				<ul id="myUL">
 					<table>
@@ -169,6 +188,7 @@
 							<td>{{ text }}</td>
 							<td>{{ dateTime }}</td>
 							<td>{{ done }}</td>
+							<td>{{ category }} </td>
 							<td><a href="/checklist/edit?id={{id}}" />Edit</td>
 							<td><a href="/checklist/delete?id={{id}}" />Delete</td>
 						</tr>

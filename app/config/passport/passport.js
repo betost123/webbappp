@@ -44,8 +44,8 @@
             var data =
             { email:email,
             password:userPassword,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname
+            name: req.body.name,
+            userid: req.body.userid
             };
 
         User.create(data).then(function(newUser,created){
