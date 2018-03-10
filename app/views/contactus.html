@@ -1,6 +1,7 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="firstpStyle.css">	<title></title>
 	<style>
 	/*
 	* multi-line comment
@@ -142,9 +143,8 @@
 
 	</style>
 </head>
-
 <body>
-<!-- webpage content goes here in the body -->
+
 <button class="button"><a href="/">Home</a></button>
 <button class="button"><a href="/register">Register</a></button>
 <button class="button"><a href="/checklist">Checklist</a></button>
@@ -152,49 +152,49 @@
 <button class="button"><a href="/logout">Log Out</a></button>
 <button class="button"><a href="/contactus">Contact Us</a></button>
 
-<p> {{ text }} </p>
-
 	<div id="page">
 		<div id="logo" style="text-align: center">
 
-			<h1>Checklist for xxxx</h1>
+			<h1><a href="/" id="logoLink"> Welcome to your online personal calendar</a></h1>
 		</div>
-		<div id="nav"> </div>
-
+		<div id="nav">
+		</div>
 		<div id="content">
-			<form action="/checklistsearched" method="get">
-				<table>
-					<tr>
-						<td><input type="text" name="category" />Search by category</td>
-					</tr>
-					<tr>
-						<td><input type="submit" name="add" value="Search" /></td>
-					</tr>
-				</table>
-			</form>
 			<p>
-				<ul id="myUL">
-					<table>
-						{{#homechecklist}}
-						<tr>
-							<td><a href="/checklist?id={{id}}" /> {{ id }}</td>
-							<td>{{ text }}</td>
-							<td>{{ dateTime }}</td>
-							<td>{{ done }}</td>
-							<td>{{ category }} </td>
-							<td><a href="/checklist/edit?id={{id}}" />Edit</td>
-							<td><a href="/checklist/delete?id={{id}}" />Delete</td>
-						</tr>
-						{{/homechecklist}}
-					</table>
-			</ul>
-			<p>
-				<button class="button"><a href="/checklist/add"> New note </a></button>
-			</br>
+        <div class="contactus_overlay"></div>
+        <!-- </div> -->
+        <div class="container__child signup__form">
+        <!--form action="form action="/home/contactus"" method="POST"-->
+        <form action="/contactus" method="POST">
+          <div class="form-group">
+            <label for="name">name</label>
+            <input class="form-control" type="text" name="name" id="name" placeholder="uno" required />
+          </div>
+          <div class="form-group">
+            <label for="contactNumber">contact Number</label>
+            <input class="form-control" type="text" name="contact Number" id="contactNumber" required />
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input class="form-control" type="email" name="email" id="email" placeholder="uno@holmer.se" required />
+          </div>
+          <div class="form-group">
+            <label for="message">message</label>
+            <input class="form-control" type="text" name="message" id="message" cols ='37' rows ='7' size='30' required />
+          </div>
+          <div class="m-t-lg">
+            <ul class="list-inline">
+              <li>
+                <input class="btn btn--form" type="submit" value="Submit" />
+              </li>
+            {{ msg }}
 			</p>
-		 </p>
+
 		</div>
+
 	</div>
 
 </body>
+<br>
+<br>
 </html>

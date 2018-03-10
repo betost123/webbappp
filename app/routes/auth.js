@@ -1,5 +1,6 @@
 var authController = require('../controllers/authcontroller.js');
 var models = require('../models');
+var nodemailer = require('nodemailer');
 
 module.exports = function(app,passport){
 
@@ -10,6 +11,9 @@ app.get('/home',isLoggedIn, authController.home);
 app.get('/logout',authController.logout);
 app.post('/signin', passport.authenticate(
   'local-signin',  { successRedirect: '/home', failureRedirect: '/signin'}));
+
+  app.get('/contactus', authController.contactus);
+  app.post('/contactus', contact, authController.contactus);
 
 //For checklist
 app.get('/checklist', isLoggedIn, showNotes, authController.checklist);
@@ -120,6 +124,36 @@ function addNote(req, res, next) {
   }).catch(function(error) {
     console.log(error);
   })
+}
+
+//Send email by contact form
+function contact(req, res, next) {
+  var mailOpts, smtpTrans;
+  smtpTrans = nodemailer.createTransport( {
+    service : 'Gmail',
+    auth: { //Mails are sent from this email
+      user: "testwebbapp63@gmail.com",
+      pass: "Rootroot"
+    }
+  });
+  console.log('created' + smtpTrans);
+  mailOpts = {
+    from: req.body.name + req.body.email,
+    to: "najishahad96@gmail.com",   //Recipent of all emails
+    subject: req.body.email + '--message from contactus form',
+    text: "Name:" + req.body.name + "Email:" + req.body.email
+    + "Contact Number:" + req.body.contactnumber + "QUERY:" + req.body.message,
+  };
+    console.log('got the receiver' + mailOpts);
+  smtpTrans.sendMail(mailOpts, function(error, response) {
+    //Alert on event of message sent succeed or fail.
+    if(error) {
+      res.render('contactus', {msg: 'Error occured, message not sent.', err : true});
+    } else{
+      res.render('contactus', {msg: 'Message sent! Thank you', err : false});
+    }
+    smtpTrans.close();
+  });
 }
 
 //Give access to person using website

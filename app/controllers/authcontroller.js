@@ -32,6 +32,10 @@ exports.edit = function(req, res) {
 exports.delete = function(req, res){
 	res.render('delete');
 }
+//Contact us
+exports.contactus = function(req, res){
+	res.render('contactus');
+}
 
 //Log out user
 exports.logout = function(req,res){
