@@ -1,8 +1,8 @@
 #BOPO - Online Personal Organizer
 
-#Fressia Merino - github @assierf
-#Shahad Naji - github @shahadnaji
-#Betina Andersson - github @betost123
+- Fressia Merino - github @assierf
+- Shahad Naji - github @shahadnaji
+- Betina Andersson - github @betost123
 
 #To start:
 1. Run 'node server.js'
