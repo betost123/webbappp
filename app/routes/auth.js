@@ -12,8 +12,12 @@ app.get('/logout',authController.logout);
 app.post('/signin', passport.authenticate(
   'local-signin',  { successRedirect: '/home', failureRedirect: '/signin'}));
 
-  app.get('/contactus', authController.contactus);
-  app.post('/contactus', contact, authController.contactus);
+//For Contact Us
+app.get('/contactus', authController.contactus);
+app.post('/contactus', contact, authController.contactus);
+  
+//For calendar
+app.get('/calendar', isLoggedIn, authController.calendar); 
 
 //For checklist
 app.get('/checklist', isLoggedIn, showNotes, authController.checklist);
