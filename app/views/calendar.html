@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--<meta http-equiv="Content-Type">-->
-	<link rel="stylesheet" href="../public/css/calendar.css">
+	<link rel="stylesheet" href="/css/calendar.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="../public/lib/fullcalendar/dist/fullcalendar.css" />
-	<script src="../public/lib/moment/min/moment.min.js"></script>
-	<script src="../public/lib/fullcalendar/dist/fullcalendar.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/lib/fullcalendar/dist/fullcalendar.css" />
+	<script src="/lib/moment/min/moment.min.js"></script>
+	<script src="/lib/fullcalendar/dist/fullcalendar.js"></script>
 	<script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-	
+
     <title>Calendar</title>
-	
+
 	<script>
 	$(document).ready(function() {
 	// page is now ready, initialize the calendar...
@@ -37,7 +37,7 @@
 						var dateStr = prompt('Enter a date in YYYY-MM-DD format:');
 						var date = moment(dateStr);
 						var infoStr = prompt('Enter title and information about the event:');
-						
+
 
 						if (date.isValid()) {
 							$('#calendar').fullCalendar('renderEvent', {
@@ -100,17 +100,17 @@
 				event.title =  function() {
 				var infoStr = prompt('Update event description:');
 				var infoDes = moment(infoStr);
-				
-				
+
+
 				$('#calendar').fullCalendar('updateEvent', event);}
-			}*/				
+			}*/
 		})
-			
+
 	});
 			</script>
 </head>
 
-<body>  
+<body>
 <div class="container">
 	<header>
 		<h1> Calendar </h1>
@@ -120,10 +120,9 @@
 			<li><a href="#">Menu</a></li>
 		</ul>
 	</nav>
-	<article>	
+	<article>
 		<div id='calendar'></div>
 	</article>
 
 </body>
 </html>
-
