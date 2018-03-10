@@ -33,6 +33,8 @@ var models = require("./app/models");
 //Routes
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
+//PUBLIC - Used for static resources (must have first arg, to make path absolute)
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport,models.user);

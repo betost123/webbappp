@@ -1,0 +1,89 @@
+#current_day { background-color:lightblue; font-weight: bold; } 
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+	font-size: 16px;
+}
+/* Days (1-31) */
+
+div.chooseMonth {
+	padding: 1em;
+    color: white;
+    /*background-color: black;*/
+    clear: left;
+    text-align: center;
+	font-size: 16px;
+}
+
+table.days {
+    margin: 20;
+    padding: 20px 0;
+    /*background-color:#ddd;*/
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 20;
+    padding: 1em;
+	/*font-size: 16px;*/
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 10px 0;
+	/*font-size: 16px;*/
+}
+
+nav ul a {
+    text-decoration: none;
+	/*font-size: 16px;*/
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+	text-align: center;
+}
+
+button span.nextMonth {
+	/*background-color: #4CAF50;*/
+    border: none;
+    color: black;
+    padding: 3px 10px;
+    /*text-align: right;*/
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	white-space: nowrap;
+	/*float: right;*/
+}
+
+button span.prevMonth {
+	border: none;
+    color: black;
+    padding: 3px 10px;
+    /*text-align: right;*/
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	white-space: nowrap;
+	/*float: left;*/
+}
