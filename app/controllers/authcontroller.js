@@ -40,6 +40,11 @@ exports.contactus = function(req, res){
 exports.settings = function(req, res){
 	res.render('settings');
 }
+//upload
+exports.upload = function(req, res) {
+	res.render('upload');
+}
+
 //Log out user
 exports.logout = function(req,res){
   req.session.destroy(function(err) {

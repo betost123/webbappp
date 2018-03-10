@@ -5,6 +5,7 @@ var session    = require('express-session')
 var bodyParser = require('body-parser')
 var env        = require('dotenv').load()
 var exphbs     = require('express-handlebars')
+var multer = require('multer');
 
 //For BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,6 +17,7 @@ app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+//To access static css files
 app.use(express.static('app/public'))
 
  //View enginge setup
@@ -34,8 +36,33 @@ var models = require("./app/models");
 //Routes
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
-//PUBLIC - Used for static resources (must have first arg, to make path absolute)
-//app.use('/public', express.static(path.join(__dirname, '/public')));
+
+//PIXTURE
+var Storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, "./Images");
+  },
+  filename: function(req, file, callback) {
+    callback(null, file.filename + "_" + Date.now() + "_" + file.originalname);
+  }
+});
+
+var upload = multer ({
+  storage : Storage
+}).array("imgUploader", 3); //field name and max cunt
+
+app.get("/settings", function(res, req) {
+  res.sendFile(__dirname + "/settings.html");
+});
+app.post("/api/upload", function(req, res) {
+  upload(req, res, function(err) {
+    if(err) {return res.end("Something went wrong");
+  } return res.end(
+    console.log("File uploaded successfully");
+});
+});
+//uploadPicture
+
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport,models.user);

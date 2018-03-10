@@ -1,7 +1,7 @@
 var authController = require('../controllers/authcontroller.js');
 var models = require('../models');
 var nodemailer = require('nodemailer');
-//var publics = require('../public');
+var bodyParser = require('body-parser');
 
 module.exports = function(app,passport){
 
@@ -15,7 +15,6 @@ app.post('/signin', passport.authenticate(
 
 app.get('/contactus', authController.contactus);
 app.post('/contactus', contact, authController.contactus);
-app.get('/settings', isLoggedIn, showUserInfo, authController.settings);
 
 //For Contact Us
 app.get('/contactus', authController.contactus);
@@ -33,6 +32,44 @@ app.post('/checklist/edit', isLoggedIn, editNote, authController.edit);
 app.get('/checklist/delete', isLoggedIn, getDeleteNote, authController.delete);
 app.post('/checklist/delete', isLoggedIn, deleteNote, authController.delete);
 app.get('/checklistsearched', isLoggedIn, showNotesSearched, authController.checklistsearched);
+
+//For settings
+//Path to temporary directory to store uploaded files
+//app.use(bodyParser({uploadDir:'localhost:5000/tmp'}));
+//var path = require('path'),
+//    fs = require('fs');
+
+app.get('/settings', isLoggedIn, showUserInfo, authController.settings);
+
+
+
+
+/*
+app.post('/upload', uploadPicture, authController.upload);
+app.get('/image.png', function (req, res) {
+    res.sendfile(path.resolve('./uploads/image.png'));
+});
+
+function uploadPicture(req, res) {
+  console.log("1st");
+  var tempPath = req.file.path;
+  console.log("2nd");
+  var targetPath = path.resolve('./uploads/image.png');
+  console.log("3rd");
+  if (path.extname(req.file.file.name).toLowerCase() === '.png') {
+    fs.rename(tempPath, targetPath, function(err) {
+      if (err) throw err;
+      console.log("Upload completed!");
+    });
+  } else {
+    fs.unlink(tempPath, function() {
+      if (err) throw err;
+      console.erro("Only .png files are allowed!");
+    });
+  }
+}
+
+*/
 
 //Edit a note
 function getEditNote(req, res, next) {
