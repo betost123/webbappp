@@ -50,6 +50,6 @@ console.log(err,"Something went wrong with the Database Update!")
 
 app.listen(5000, function(err){
 if(!err)
-console.log("Site is live"); else console.log(err)
+console.log("Listening at port 5000"); else console.log(err)
 
 });

@@ -12,8 +12,9 @@ app.get('/logout',authController.logout);
 app.post('/signin', passport.authenticate(
   'local-signin',  { successRedirect: '/home', failureRedirect: '/signin'}));
 
-  app.get('/contactus', authController.contactus);
-  app.post('/contactus', contact, authController.contactus);
+app.get('/contactus', authController.contactus);
+app.post('/contactus', contact, authController.contactus);
+app.get('/settings', isLoggedIn, showUserInfo, authController.settings);
 
 //For checklist
 app.get('/checklist', isLoggedIn, showNotes, authController.checklist);
@@ -95,6 +96,16 @@ function showNotes(req, res, next) {
 .catch(function(err) {
   console.log("Error: " + err);
 })*/
+}
+
+//Show all notes
+function showUserInfo(req, res, next) {
+  models.user.findOne()
+  .then(function(users) {
+    res.render('settings', {
+      userinfo: users
+    })
+  })
 }
 
 //Find user email

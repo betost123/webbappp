@@ -151,7 +151,6 @@
 <button class="button"><a href="/signin">Log in</a></button>
 <button class="button"><a href="/logout">Log Out</a></button>
 <button class="button"><a href="/contactus">Contact Us</a></button>
-<button class="button"><a href="/settings">Settings</a></button>
 
 	<div id="page">
 		<div id="logo" style="text-align: center">
@@ -162,7 +161,20 @@
 		</div>
 		<div id="content">
 			<p>
-        Have fun!
+        Hi! This is you settings page. Here you can see your information.
+        <ul id="myUL">
+          <table>
+            {{#userinfo}}
+            <tr>
+              <td>{{ name }}</td>
+              <td>{{ userid }}</td>
+              <td>{{ email }}</td>
+              <td>{{ createdAt }} </td>
+              <td>{{ updatedAt }} </td>
+            </tr>
+            {{/userinfo}}
+          </table>
+        </ul>
 			</p>
 
 		</div>

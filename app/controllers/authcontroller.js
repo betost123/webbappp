@@ -36,7 +36,10 @@ exports.delete = function(req, res){
 exports.contactus = function(req, res){
 	res.render('contactus');
 }
-
+//settings
+exports.settings = function(req, res){
+	res.render('settings');
+}
 //Log out user
 exports.logout = function(req,res){
   req.session.destroy(function(err) {
