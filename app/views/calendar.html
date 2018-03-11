@@ -5,17 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--<meta http-equiv="Content-Type">-->
-	<link rel="stylesheet" href="/css/calendar.css">
+	<link rel="stylesheet" type="text/css" href="css/firstpStyle.css">
+	<!--<link rel="stylesheet" href="/css/calendar.css">-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 	<link rel="stylesheet" type="text/css" href="/lib/fullcalendar/dist/fullcalendar.css" />
 	<script src="/lib/moment/min/moment.min.js"></script>
 	<script src="/lib/fullcalendar/dist/fullcalendar.js"></script>
 	<script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+	
+	
     <title>Calendar</title>
-
+	
 	<script>
+	//FullCalendar 
 	$(document).ready(function() {
 	// page is now ready, initialize the calendar...
 		$('#calendar').fullCalendar({
@@ -37,8 +44,6 @@
 						var dateStr = prompt('Enter a date in YYYY-MM-DD format:');
 						var date = moment(dateStr);
 						var infoStr = prompt('Enter title and information about the event:');
-
-
 						if (date.isValid()) {
 							$('#calendar').fullCalendar('renderEvent', {
 								title: infoStr,
@@ -46,11 +51,12 @@
 								allDay: true
 							});
 							alert('Great. Now, update your database...');
+							
 						} else {
-							alert('You suck!');
+							alert('Try "Add Event" again!');
 						}
 					}
-				}
+				},	
 			},
 			selectable: true,
 			dayClick: function(date) {
@@ -63,66 +69,103 @@
 				{
 					title: 'All Day Event',
 					start: '2018-03-01',
-					description: 'long day today because of event.'
+					description: 'Long day today because of event.'
 				},
 				{
 					title: 'Long Event',
 					start: '2018-03-07',
-					end: '2018-03-10'
+					end: '2018-03-10',
+					description: 'Event nr 2 '
 				},
 				{
 					id: 999,
 					title: 'Repeating Event',
-					start: '2018-03-09T16:00:00'
+					start: '2018-03-09T16:00:00',
+					description: ' Event nr 3 '
 				},
 				{
 					title: 'Meeting',
 					start: '2018-03-12T10:30:00',
-					end: '2018-03-12T12:30:00'
+					end: '2018-03-12',
+					description: ' Event nr 4 '
 				},
 				{
 					title: 'Lunch',
-					start: '2018-03-12T12:00:00'
+					start: '2018-03-12',
+					description: 'Go, Chalmers! Go!',
+					url: 'https://www.chalmers.se/'
 				},
-				{
+				{	
 					title: 'Meeting',
-					start: '2018-03-12T14:30:00'
+					start: '2018-03-12',
+					description: ' Should be a boring meeting '
 				},
 				{
-					title: 'Happy Hour',
-					start: '2018-03-12T17:30:00'
-				},
-				{
-					title: 'Dinner',
-					start: '2018-03-12T20:00:00'
-				}]
-			/*eventClick: function(event, element) {
-				event.title =  function() {
-				var infoStr = prompt('Update event description:');
-				var infoDes = moment(infoStr);
-
-
-				$('#calendar').fullCalendar('updateEvent', event);}
-			}*/
+					title: 'Birthday Party',
+					description: 'description for Birthday Party',
+					start: '2018-03-13T07:00:00'
+				}
+			],
+			eventRender: function (event, element) {
+				element.attr('href', 'javascript:void(0);');
+				element.click(function() {
+					$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+					$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+					$("#eventInfo").html(event.description);
+					$("#eventLink").attr('href', event.url);
+					$("#eventContent").dialog({ 
+						title: event.title,
+						resizable: true,
+						height: "auto", 
+						width: 400,
+						modal: true,
+						create: function (event, ui) {
+						$(event.target).parent().css('position', 'fixed');
+						},
+						
+						buttons: {
+							Ok: function() {
+								$( this ).dialog( "close" );
+						}}
+					});
+				});
+			}
+						
 		})
-
+			
 	});
-			</script>
+	</script>			
 </head>
 
-<body>
-<div class="container">
-	<header>
-		<h1> Calendar </h1>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="#">Menu</a></li>
-		</ul>
-	</nav>
-	<article>
-		<div id='calendar'></div>
-	</article>
+<body>  
+	<div id="page">
+		<div id="logo" style="text-align: center">
+			<div class="container">
+				<header>
+					<h1> Calendar </h1>
+				</header>
+				<!-- Menu buttons -->
+				<button class="button"><a href="/">Home</a></button>
+				<button class="button"><a href="/register">Register</a></button>
+				<button class="button"><a href="/checklist">Checklist</a></button>
+				<button class="button"><a href="/signin">Log in</a></button>
+				<button class="button"><a href="/logout">Log Out</a></button>
+				<button class="button"><a href="/contactus">Contact Us</a></button>
+				<button class="button"><a href="/calendar">Calendar</a></button>
+				<button class="button"><a href="/settings">Settings</a></button>
 
+					
+				<div id='calendar'>
+					<div id="eventContent" title="Event Details" style="display:none;" >
+					Start: <span id="startTime"></span><br>
+					End: <span id="endTime"></span><br><br>
+					<p id="eventInfo"></p>
+					<p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
 </body>
 </html>
+ 
