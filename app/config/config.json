@@ -2,8 +2,8 @@
 
     "development": {
         "username": "root",
-        "password": "pwd",
-        "database": "BOPO",
+        "password": "Root",
+        "database": "bopo",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },

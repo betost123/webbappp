@@ -5,7 +5,7 @@ var session    = require('express-session')
 var bodyParser = require('body-parser')
 var env        = require('dotenv').load()
 var exphbs     = require('express-handlebars')
-var multer = require('multer');
+var multer     = require('multer');
 
 //For BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,11 +34,11 @@ app.get('/', function(req, res){
 var models = require("./app/models");
 
 //Routes
-//var authRoute = require('./app/routes/auth.js')(app,passport);
 var router = require('./app/routes/router.js')(app,passport);
 
 
-//PIXTURE
+//Code for uploading image and putting in folder Images.
+/*
 var Storage = multer.diskStorage({
   destination: function(req, file, callback) {
     callback(null, "./Images");
@@ -62,9 +62,8 @@ app.get("/settings", function(res, req) {
          }
          //res.render('ourimages');
          //return res.end("File uploaded sucessfully!.");
-         console.log("BITCH");
      });
- });
+ }); */
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport,models.user);

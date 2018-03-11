@@ -23,6 +23,7 @@
       });
   });
 
+  // Register using Passports LocalStrategy
   passport.use('local-signup', new LocalStrategy(
     {
       usernameField : 'email',
@@ -31,10 +32,11 @@
     },
 
     function(req, email, password, done){
+      console.log("trying to register user");
       var generateHash = function(password) {
       return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
       };
-
+      //Check if email already exists in db
        User.findOne({where: {email:email}}).then(function(user){
           if(user)
           {

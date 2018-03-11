@@ -1,3 +1,5 @@
+
+
 module.exports = function(sequelize, Sequelize) {
 
     var Note = sequelize.define('note', {

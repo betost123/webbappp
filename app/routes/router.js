@@ -1,41 +1,41 @@
-var authController = require('../controllers/authcontroller.js');
+var controller = require('../controllers/controller.js');
 var models = require('../models');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 
 module.exports = function(app,passport){
 
-app.get('/register', authController.register);
-app.get('/signin', authController.signin);
+app.get('/home', controller.home);
+app.get('/register', controller.register);
 app.post('/register', passport.authenticate('local-signup',  { successRedirect: '/home',failureRedirect: '/register'}));
-app.get('/home', authController.home);
-app.get('/logout',authController.logout);
+
+app.get('/signin', controller.signin);
 app.post('/signin', passport.authenticate(
   'local-signin',  { successRedirect: '/home', failureRedirect: '/signin'}));
-app.post('/deleteuser', deleteUser, authController.deleteuser);
 
-app.get('/contactus', authController.contactus);
-app.post('/contactus', contact, authController.contactus);
+//Settings
+app.get('/settings', isLoggedIn, showUserInfo, controller.settings);
+app.get('/logout',controller.logout);
+app.post('/deleteuser', deleteUser, controller.deleteuser);
 
-app.get('/ourimages', authController.ourimages);
+app.get('/ourimages', controller.ourimages);
+
 //For Contact Us
-app.get('/contactus', authController.contactus);
-app.post('/contactus', contact, authController.contactus);
-
-app.get('/settings', isLoggedIn, showUserInfo, authController.settings);
+app.get('/contactus', controller.contactus);
+app.post('/contactus', contact, controller.contactus);
 
 //For calendar
-app.get('/calendar', isLoggedIn, authController.calendar);
+app.get('/calendar', isLoggedIn, controller.calendar);
 
 //For checklist
-app.get('/checklist', isLoggedIn, showNotes, authController.checklist);
-app.get('/checklist/add', isLoggedIn, authController.add);
-app.post('/checklist/add', isLoggedIn, addNote, authController.add);
-app.get('/checklist/edit', isLoggedIn, getEditNote, authController.edit);
-app.post('/checklist/edit', isLoggedIn, editNote, authController.edit);
-app.get('/checklist/delete', isLoggedIn, getDeleteNote, authController.delete);
-app.post('/checklist/delete', isLoggedIn, deleteNote, authController.delete);
-app.get('/checklistsearched', isLoggedIn, showNotesSearched, authController.checklistsearched);
+app.get('/checklist', isLoggedIn, showNotes, controller.checklist);
+app.get('/checklist/add', isLoggedIn, controller.add);
+app.post('/checklist/add', isLoggedIn, addNote, controller.add);
+app.get('/checklist/edit', isLoggedIn, getEditNote, controller.edit);
+app.post('/checklist/edit', isLoggedIn, editNote, controller.edit);
+app.get('/checklist/delete', isLoggedIn, getDeleteNote, controller.delete);
+app.post('/checklist/delete', isLoggedIn, deleteNote, controller.delete);
+app.get('/checklistsearched', isLoggedIn, showNotesSearched, controller.checklistsearched);
 
 //Delete user
 function deleteUser(req, res, next){
@@ -43,13 +43,13 @@ function deleteUser(req, res, next){
   models.user.destroy({
     where: {email: req.body.email}
   }).then(function() {
-    console.log("You have now lost you account at BOPO");
+    console.log("You have now lost your account at BOPO");
   })
 }
 
 //Edit a note
 function getEditNote(req, res, next) {
-  console.log("We gonna edit this note: " + req.query.id);
+  console.log("We are gonna edit this note: " + req.query.id);
   models.note.findById(req.query.id).then(function(note) {
     res.render('edit', {
       note: note
@@ -57,6 +57,7 @@ function getEditNote(req, res, next) {
   })
 }
 function editNote(req, res, next) {
+  console.log("edited to:" + req.body.text);
   models.note.findById(req.body.id).then(function(note) {
     return note.updateAttributes({text: req.body.text});
   }).then(function() {
@@ -66,7 +67,7 @@ function editNote(req, res, next) {
 
 //Delete a note
 function getDeleteNote(req, res, next) {
-  console.log("we gonna delete thid" + req.query.id);
+  console.log("we are gonna delete this" + req.query.id);
   models.note.findById(req.query.id).then(function(note){
     res.render('delete', {
       note: note
@@ -74,6 +75,7 @@ function getDeleteNote(req, res, next) {
   })
 }
 function deleteNote(req, res, next){
+  console.log("deleting:" + req.body.note);
   models.note.findById(req.body.id).then(function(note){
     return note.destroy();
   }).then(function() {
@@ -83,6 +85,7 @@ function deleteNote(req, res, next){
 
 //Show notes by category
 function showNotesSearched(req, res, next) {
+  console.log("showing you notes by specified category");
   models.note.findAll({ where:
     {category: req.query.category}})
   .then(function(notes) {
@@ -94,6 +97,7 @@ function showNotesSearched(req, res, next) {
 
 //Show all notes
 function showNotes(req, res, next) {
+  console.log("showing you all notes");
   models.note.findAll()
   .then(function(notes) {
     res.render('checklist', {
@@ -126,7 +130,7 @@ function getMail() {
 
 //Add a note
 function addNote(req, res, next) {
-  console.log("Trying to add");
+  console.log("Trying to add note");
   models.note
   .build({
     userid: req.body.userid,
@@ -141,8 +145,9 @@ function addNote(req, res, next) {
   })
 }
 
-//Send email by contact form
+//Send emails by 'contact us' form
 function contact(req, res, next) {
+  console.log("sending this message: " + req.body.message);
   var mailOpts, smtpTrans;
   smtpTrans = nodemailer.createTransport( {
     service : 'Gmail',
@@ -154,7 +159,7 @@ function contact(req, res, next) {
   console.log('created' + smtpTrans);
   mailOpts = {
     from: req.body.name + req.body.email,
-    to: "najishahad96@gmail.com",   //Recipent of all emails
+    to: "testwebbapp63@gmail.com",   //Recipent of all emails
     subject: req.body.email + '--message from contactus form',
     text: "Name:" + req.body.name + "Email:" + req.body.email
     + "Contact Number:" + req.body.contactnumber + "QUERY:" + req.body.message,
@@ -173,7 +178,7 @@ function contact(req, res, next) {
 
 //Give access to person using website
 function isLoggedIn(req, res, next) {
-  console.log("This me bish: " + req.session.userpass);
+  console.log("User: " + req.session.userpass);
     if (req.isAuthenticated())
         return next();
 

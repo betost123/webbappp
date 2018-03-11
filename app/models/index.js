@@ -1,6 +1,8 @@
+
+//This file has been generated with the sequelize CLI and collects all the models from the models directory and associates them if needed.
 "use strict";
 
-var fs = require("fs");
+var fs = require("fs"); //File System Module
 var path = require("path");
 var Sequelize = require("sequelize");
 var env = process.env.NODE_ENV || "development";

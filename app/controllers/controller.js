@@ -48,10 +48,10 @@ exports.upload = function(req, res) {
 exports.deleteuser = function(req, res) {
 	res.render('/');
 }
+// image folder..
 exports.ourimages = function(req, res) {
 	res.render('ourimages');
 }
-
 //Log out user
 exports.logout = function(req,res){
   req.session.destroy(function(err) {
