@@ -55,6 +55,7 @@ exports.ourimages = function(req, res) {
 //Log out user
 exports.logout = function(req,res){
   req.session.destroy(function(err) {
+		console.log("you are now logged out!");
   res.redirect('/');
   });
 }
