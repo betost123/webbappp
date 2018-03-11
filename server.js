@@ -54,15 +54,16 @@ var upload = multer ({
 app.get("/settings", function(res, req) {
   res.sendFile(__dirname + "/settings.html");
 });
-app.post("/api/upload", function(req, res) {
-  upload(req, res, function(err) {
-    if(err) {return res.end("Something went wrong");
-  } return res.end(
-    console.log("File uploaded successfully");
-});
-});
-//uploadPicture
-
+ app.post("/api/Upload", function(req, res) {
+     upload(req, res, function(err) {
+         if (err) {
+             return res.end("Something went wrong!");
+         }
+         //res.render('ourimages');
+         //return res.end("File uploaded sucessfully!.");
+         console.log("BITCH");
+     });
+ });
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport,models.user);

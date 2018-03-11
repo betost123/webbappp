@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  hello helolo heloll
+
+  <img id=document src=""></img>
+
+
+  <img id="blah" src="" alt="your image" />
+  <form id="frmUploader" enctype="multipart/form-data" action="api/Upload/" method="post">
+  <input type="file" name="imgUploader" multiple />
+  <input type="submit" name="submit" id="btnSubmit" value="Upload" /> </form>
+
+  <script>
+  const testFolder = '../Images/';
+  const fs = require('fs');
+
+  fs.readdir(testFolder, (err, files) => {
+    files.forEach(file => {
+      console.log(file);
+    });
+  })
+</script>
+
+<script>
+var dir = "../Images";
+var fileextension = ".png";
+$.ajax({
+    //This will retrieve the contents of the folder if the folder is configured as 'browsable'
+    url: dir,
+    success: function (data) {
+        //List all .png file names in the page
+        $(data).find("a:contains(" + fileextension + ")").each(function () {
+            var filename = this.href.replace(window.location.host, "").replace("http://", "");
+            $("body").append("<img src='" + dir + filename + "'>");
+        });
+    }
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    var options = {
+    beforeSubmit: showRequest,
+    // pre-submit callback success: showResponse
+    // post-submit callback };
+    // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); });
+    // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; }
+    // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
+  </script>
+
+</body>
+</html>

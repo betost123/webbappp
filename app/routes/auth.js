@@ -8,17 +8,21 @@ module.exports = function(app,passport){
 app.get('/register', authController.register);
 app.get('/signin', authController.signin);
 app.post('/register', passport.authenticate('local-signup',  { successRedirect: '/home',failureRedirect: '/register'}));
-app.get('/home',isLoggedIn, authController.home);
+app.get('/home', authController.home);
 app.get('/logout',authController.logout);
 app.post('/signin', passport.authenticate(
   'local-signin',  { successRedirect: '/home', failureRedirect: '/signin'}));
+app.post('/deleteuser', deleteUser, authController.deleteuser);
 
 app.get('/contactus', authController.contactus);
 app.post('/contactus', contact, authController.contactus);
 
+app.get('/ourimages', authController.ourimages);
 //For Contact Us
 app.get('/contactus', authController.contactus);
 app.post('/contactus', contact, authController.contactus);
+
+app.get('/settings', isLoggedIn, showUserInfo, authController.settings);
 
 //For calendar
 app.get('/calendar', isLoggedIn, authController.calendar);
@@ -33,43 +37,15 @@ app.get('/checklist/delete', isLoggedIn, getDeleteNote, authController.delete);
 app.post('/checklist/delete', isLoggedIn, deleteNote, authController.delete);
 app.get('/checklistsearched', isLoggedIn, showNotesSearched, authController.checklistsearched);
 
-//For settings
-//Path to temporary directory to store uploaded files
-//app.use(bodyParser({uploadDir:'localhost:5000/tmp'}));
-//var path = require('path'),
-//    fs = require('fs');
-
-app.get('/settings', isLoggedIn, showUserInfo, authController.settings);
-
-
-
-
-/*
-app.post('/upload', uploadPicture, authController.upload);
-app.get('/image.png', function (req, res) {
-    res.sendfile(path.resolve('./uploads/image.png'));
-});
-
-function uploadPicture(req, res) {
-  console.log("1st");
-  var tempPath = req.file.path;
-  console.log("2nd");
-  var targetPath = path.resolve('./uploads/image.png');
-  console.log("3rd");
-  if (path.extname(req.file.file.name).toLowerCase() === '.png') {
-    fs.rename(tempPath, targetPath, function(err) {
-      if (err) throw err;
-      console.log("Upload completed!");
-    });
-  } else {
-    fs.unlink(tempPath, function() {
-      if (err) throw err;
-      console.erro("Only .png files are allowed!");
-    });
-  }
+//Delete user
+function deleteUser(req, res, next){
+  console.log("Deleting user: " + [req.body.email]);
+  models.user.destroy({
+    where: {email: req.body.email}
+  }).then(function() {
+    console.log("You have now lost you account at BOPO");
+  })
 }
-
-*/
 
 //Edit a note
 function getEditNote(req, res, next) {
@@ -80,7 +56,6 @@ function getEditNote(req, res, next) {
     })
   })
 }
-
 function editNote(req, res, next) {
   models.note.findById(req.body.id).then(function(note) {
     return note.updateAttributes({text: req.body.text});
@@ -119,28 +94,12 @@ function showNotesSearched(req, res, next) {
 
 //Show all notes
 function showNotes(req, res, next) {
-  //console.log("User: " + req.session.id); //Encrypted!?
   models.note.findAll()
   .then(function(notes) {
     res.render('checklist', {
       homechecklist: notes
     })
   })
-  /*
-  models.user.findAll({where: {status: 'active'}, attributes: ['email']})
-  .then(function(user) {
-    console.log("Email is: " + user.email);
-    models.note.findAll({where: {email: user.email}})
-    .catch(function(err) {console.log("Error :" + err);})
-    .then(function(notes) {
-      res.render('checklist', {
-        homechecklist: notes
-      })
-    })
-  })
-.catch(function(err) {
-  console.log("Error: " + err);
-})*/
 }
 
 //Show all notes

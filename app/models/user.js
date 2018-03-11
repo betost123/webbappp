@@ -16,7 +16,7 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.TEXT
         },
         email: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             validate: {
                 isEmail: true
             }

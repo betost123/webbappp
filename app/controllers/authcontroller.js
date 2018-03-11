@@ -44,6 +44,13 @@ exports.settings = function(req, res){
 exports.upload = function(req, res) {
 	res.render('upload');
 }
+//delete users
+exports.deleteuser = function(req, res) {
+	res.render('/');
+}
+exports.ourimages = function(req, res) {
+	res.render('ourimages');
+}
 
 //Log out user
 exports.logout = function(req,res){

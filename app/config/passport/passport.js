@@ -1,5 +1,6 @@
   //load bcrypt
   var bCrypt = require('bcrypt-nodejs');
+  var bodyParser = require('body-parser');
 
   module.exports = function(passport,user){
 
